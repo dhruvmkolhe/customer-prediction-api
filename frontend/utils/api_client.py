@@ -136,22 +136,25 @@ class APIClient:
 def get_api_client():
     """Get cached API client instance with environment-aware URL."""
     import os
-    # Priority: 1. Env Var, 2. Streamlit Secrets, 3. Default Localhost
-    # Smart URL detection
+    # Priority: 1. Env Var, 2. Streamlit Secrets, 3. Default (Internal 8000)
+    
+    # Priority 1: Direct Environment Variable
     base_url = os.environ.get('API_URL')
+    
+    # Priority 2: Streamlit Secrets (for Streamlit Cloud or Render secrets)
     if not base_url:
         try:
-            # Check Streamlit secrets
             base_url = st.secrets.get('API_URL')
         except:
             base_url = None
             
-    # Final fallback: If on Render (detected by environment), use localhost:8001
-    # otherwise default to local development port
+    # Priority 3: Smart Fallback
     if not base_url:
-        if os.environ.get('RENDER'):
-            base_url = 'http://127.0.0.1:8001'
+        # If running on Render (co-located), use localhost on the internal backend port
+        if os.environ.get('RENDER') or os.path.exists('/opt/render'):
+            base_url = 'http://127.0.0.1:8000'
         else:
-            base_url = 'http://127.0.0.1:8001'
+            # Local development default
+            base_url = 'http://127.0.0.1:8000'
         
     return APIClient(base_url=base_url)
