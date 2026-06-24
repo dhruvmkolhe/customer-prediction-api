@@ -131,8 +131,8 @@ class BatchPredictionRequest(BaseModel):
 
 
 class TrainingConfig(BaseModel):
-    n_customers: int = Field(10000, ge=100, le=100000)
-    n_transactions: int = Field(50000, ge=500, le=500000)
+    n_customers: int = Field(5000, ge=100, le=50000)
+    n_transactions: int = Field(20000, ge=500, le=200000)
 
 class SegmentDetailsRequest(BaseModel):
     name: str

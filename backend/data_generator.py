@@ -15,7 +15,7 @@ import os
 class DataGenerator:
     """Generates synthetic e-commerce transaction data."""
 
-    def __init__(self, n_customers=10000, n_transactions=50000, seed=42):
+    def __init__(self, n_customers=5000, n_transactions=20000, seed=42):
         self.n_customers = n_customers
         self.n_transactions = n_transactions
         self.seed = seed
