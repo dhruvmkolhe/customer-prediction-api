@@ -13,7 +13,8 @@ export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
 
 # Start FastAPI backend in the background
 echo "📡 Starting FastAPI backend on port $BACKEND_PORT..."
-uvicorn backend.server:app --host 0.0.0.0 --port $BACKEND_PORT &
+# Using --app-dir to ensure backend is treated as the root for the app
+uvicorn server:app --app-dir backend --host 0.0.0.0 --port $BACKEND_PORT &
 
 # Wait for backend to be ready
 echo "⏳ Waiting for backend to start..."
