@@ -144,7 +144,9 @@ def get_api_client():
     # Priority 2: Streamlit Secrets (for Streamlit Cloud or Render secrets)
     if not base_url:
         try:
-            base_url = st.secrets.get('API_URL')
+            # Check if st.secrets is available and has the key
+            if "API_URL" in st.secrets:
+                base_url = st.secrets["API_URL"]
         except:
             base_url = None
             
