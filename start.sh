@@ -18,18 +18,18 @@ python -m uvicorn server:app --app-dir backend --host 0.0.0.0 --port $BACKEND_PO
 
 # Wait for backend to be ready
 echo "⏳ Waiting for backend to start..."
-MAX_RETRIES=30
+MAX_RETRIES=60
 RETRY_COUNT=0
-while ! curl -s http://127.0.0.1:$BACKEND_PORT/ > /dev/null; do
+while ! curl -s -f http://127.0.0.1:$BACKEND_PORT/ > /dev/null; do
     RETRY_COUNT=$((RETRY_COUNT+1))
     if [ $RETRY_COUNT -ge $MAX_RETRIES ]; then
-        echo "❌ Backend failed to start in time. Proceeding anyway..."
+        echo "⚠️ Backend check timed out. This is expected on first run if models are large."
         break
     fi
-    sleep 1
+    sleep 2
 done
 
-echo "✅ Backend is up!"
+echo "✅ Backend check completed!"
 
 # Start Streamlit frontend
 echo "🎨 Starting Streamlit frontend on port $FRONTEND_PORT..."

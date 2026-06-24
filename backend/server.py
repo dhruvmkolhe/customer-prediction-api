@@ -151,7 +151,7 @@ class SegmentDetailsRequest(BaseModel):
 
 
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def home():
     """API health check."""
     return {
