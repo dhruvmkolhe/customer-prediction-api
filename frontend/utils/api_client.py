@@ -42,9 +42,14 @@ class APIClient:
         except requests.exceptions.Timeout:
             raise Exception(f"Request timed out after {timeout} seconds. The backend might be busy or performing a long-running operation.")
         except requests.exceptions.HTTPError as e:
-            error_detail = e.response.json().get("detail", str(e)) if e.response else str(e)
+            try:
+                error_json = e.response.json()
+                error_detail = error_json.get("detail", str(e))
+            except Exception:
+                error_detail = str(e)
+            
             st.error(f"API Error: {error_detail}")
-            raise
+            raise Exception(error_detail) from e
         except Exception as e:
             raise Exception(f"API Request failed: {str(e)}")
 

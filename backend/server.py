@@ -254,6 +254,7 @@ def simulate_traffic(count: int = Query(50, ge=1, le=500)):
                     customer_features = {
                         "recency": recency_val,
                         "frequency": int(rfm_df.at[idx, "frequency"]),
+                        # pyrefly: ignore [bad-argument-type]
                         "monetary": float(rfm_df.at[idx, "monetary"]),
                         "avg_order_value": float(rfm_df.at[idx, "avg_order_value"]) if "avg_order_value" in rfm_df.columns else float(rfm_df.at[idx, "monetary"]) / max(int(rfm_df.at[idx, "frequency"]), 1),
                         "purchase_frequency": float(rfm_df.at[idx, "purchase_frequency"]) if "purchase_frequency" in rfm_df.columns else 1.0,
@@ -447,7 +448,7 @@ def get_rfm_data(
 
     return {
         "data": data,
-        "total": int(total),
+        "total": total,
         "limit": limit,
         "offset": offset,
     }
@@ -614,7 +615,7 @@ def get_transactions(
 
     return {
         "data": data,
-        "total": int(total),
+        "total": total,
         "limit": limit,
         "offset": offset,
     }
@@ -687,4 +688,4 @@ def get_live_stats():
 if __name__ == "__main__":
     import uvicorn
     # Use 127.0.0.1 for local development to avoid resolution issues
-    uvicorn.run("server:app", host="127.0.0.1", port=8001, reload=False)
+    uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=False)

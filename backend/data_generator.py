@@ -76,31 +76,37 @@ class DataGenerator:
         transactions = []
         end_date = datetime(2024, 12, 31)
         start_date = datetime(2023, 1, 1)
+        days_range = (end_date - start_date).days
 
         # Activity level affects transaction frequency
         activity_multipliers = {"high": 1.5, "medium": 1.0, "low": 0.5}
+        
+        # Pre-sample customers for all transactions to avoid repeated .sample(1) calls
+        sampled_customers = customers.sample(self.n_transactions, replace=True).reset_index(drop=True)
+        
+        # Pre-calculate category choices
+        cat_choices = random.choices(self.categories, weights=self.category_weights, k=self.n_transactions)
+        pay_choices = random.choices(self.payment_methods, weights=self.payment_weights, k=self.n_transactions)
 
-        # Generate transactions distributed across time
-        for _ in range(self.n_transactions):
-            customer = customers.sample(1).iloc[0]
+        for i in range(self.n_transactions):
+            customer = sampled_customers.iloc[i]
             customer_id = customer["customer_id"]
-            activity = activity_multipliers[customer["activity_level"]]
-
+            # Activity isn't strictly used here yet but kept for logic consistency
+            
             # Random transaction date with seasonal patterns
-            days_range = (end_date - start_date).days
             random_day = random.randint(0, days_range)
             trans_date = start_date + timedelta(days=random_day)
 
             # Add seasonal bias (more purchases in Nov-Dec)
-            month = trans_date.month
-            if month in [11, 12]:
+            if trans_date.month in [11, 12]:
                 if random.random() > 0.6:
                     trans_date = start_date + timedelta(
                         days=random.randint(days_range - 60, days_range)
                     )
 
-            # Select category with weights
-            category = random.choices(self.categories, weights=self.category_weights)[0]
+            # Select category and payment from pre-sampled choices
+            category = cat_choices[i]
+            payment = pay_choices[i]
             price_range = self.category_price_ranges[category]
 
             # Quantity influenced by category
@@ -111,20 +117,15 @@ class DataGenerator:
             else:
                 quantity = np.random.poisson(1.5) + 1
 
-            quantity = min(quantity, 20)
+            quantity = min(max(1, quantity), 20)
 
             # Unit price with category-specific distribution
+            # pyrefly: ignore [no-matching-overload]
             unit_price = round(np.random.lognormal(
                 mean=np.log((price_range[0] + price_range[1]) / 3),
                 sigma=0.5
             ), 2)
             unit_price = np.clip(unit_price, price_range[0], price_range[1])
-
-            # Payment method
-            payment = random.choices(
-                self.payment_methods,
-                weights=self.payment_weights
-            )[0]
 
             transactions.append({
                 "transaction_id": str(uuid.uuid4())[:8],
@@ -155,6 +156,7 @@ class DataGenerator:
         ).reset_index()
 
         # Calculate additional features
+        # pyrefly: ignore [missing-attribute]
         rfm["customer_lifetime_days"] = (
             rfm["last_purchase"] - rfm["first_purchase"]
         ).dt.days + 1
