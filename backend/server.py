@@ -15,6 +15,10 @@ import os
 import json
 import sqlite3
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Ensure backend directory is in path for relative imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
