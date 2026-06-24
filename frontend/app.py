@@ -15,6 +15,10 @@ from api_client import get_api_client
 # pyrefly: ignore [missing-import]
 from auth import check_auth, logout
 from ui_components import material_header, inject_material_icons
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Page configuration
 st.set_page_config(
