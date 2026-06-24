@@ -1,0 +1,15 @@
+﻿fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+pydantic
+python-multipart
+streamlit
+requests
+plotly
+pandas
+numpy
+openpyxl

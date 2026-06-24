@@ -1,0 +1,19 @@
+{
+  "feature_columns": [
+    "recency",
+    "frequency",
+    "monetary",
+    "avg_order_value",
+    "purchase_frequency",
+    "product_diversity",
+    "customer_lifetime_days",
+    "segment"
+  ],
+  "best_model": "RandomForest",
+  "target_distribution": {
+    "1": 64,
+    "0": 35
+  },
+  "train_size": 79,
+  "test_size": 20
+}

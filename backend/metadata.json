@@ -1,0 +1,19 @@
+{
+  "feature_columns": [
+    "recency",
+    "frequency",
+    "monetary",
+    "avg_order_value",
+    "purchase_frequency",
+    "product_diversity",
+    "customer_lifetime_days",
+    "segment"
+  ],
+  "best_model": "XGBoost",
+  "target_distribution": {
+    "0": 8345,
+    "1": 1570
+  },
+  "train_size": 7932,
+  "test_size": 1983
+}

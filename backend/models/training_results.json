@@ -1,0 +1,245 @@
+{
+  "segmentation": {
+    "k_optimal": 6,
+    "silhouette_score": 0.2943,
+    "inertia": {
+      "3": 359.23,
+      "4": 279.75,
+      "5": 224.75,
+      "6": 196.39,
+      "7": 170.67
+    },
+    "silhouette_by_k": {
+      "3": 0.2766,
+      "4": 0.2693,
+      "5": 0.2858,
+      "6": 0.2943,
+      "7": 0.2851
+    },
+    "segment_mapping": {
+      "5": "Champions",
+      "1": "Loyal",
+      "4": "At Risk",
+      "0": "Hibernating",
+      "2": "New",
+      "3": "Segment 3"
+    },
+    "segment_distribution": {
+      "At Risk": 33,
+      "Champions": 26,
+      "Loyal": 15,
+      "Hibernating": 13,
+      "New": 8,
+      "Segment 3": 4
+    }
+  },
+  "classification": {
+    "models_trained": [
+      "RandomForest",
+      "XGBoost",
+      "LogisticRegression",
+      "GradientBoosting"
+    ],
+    "best_model": "RandomForest",
+    "metrics": {
+      "RandomForest": {
+        "accuracy": 0.9,
+        "precision": 1.0,
+        "recall": 0.8462,
+        "f1": 0.9167,
+        "auc": 1.0,
+        "cv_auc_mean": 1.0,
+        "cv_auc_std": 0.0,
+        "train_time_seconds": 0.35,
+        "confusion_matrix": [
+          [
+            7,
+            0
+          ],
+          [
+            2,
+            11
+          ]
+        ],
+        "roc_data": {
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.38461538461538464,
+            0.6153846153846154,
+            0.7692307692307693,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "XGBoost": {
+        "accuracy": 0.9,
+        "precision": 0.9231,
+        "recall": 0.9231,
+        "f1": 0.9231,
+        "auc": 0.989,
+        "cv_auc_mean": 0.9893,
+        "cv_auc_std": 0.0137,
+        "train_time_seconds": 0.15,
+        "confusion_matrix": [
+          [
+            6,
+            1
+          ],
+          [
+            1,
+            12
+          ]
+        ],
+        "roc_data": {
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.14285714285714285,
+            0.14285714285714285,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.07692307692307693,
+            0.23076923076923078,
+            0.46153846153846156,
+            0.6923076923076923,
+            0.9230769230769231,
+            0.9230769230769231,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "LogisticRegression": {
+        "accuracy": 0.85,
+        "precision": 0.8571,
+        "recall": 0.9231,
+        "f1": 0.8889,
+        "auc": 0.956,
+        "cv_auc_mean": 0.9777,
+        "cv_auc_std": 0.02,
+        "train_time_seconds": 0.02,
+        "confusion_matrix": [
+          [
+            5,
+            2
+          ],
+          [
+            1,
+            12
+          ]
+        ],
+        "roc_data": {
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.2857142857142857,
+            0.2857142857142857,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.07692307692307693,
+            0.8461538461538461,
+            0.8461538461538461,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "GradientBoosting": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "auc": 1.0,
+        "cv_auc_mean": 0.965,
+        "cv_auc_std": 0.07,
+        "train_time_seconds": 0.19,
+        "confusion_matrix": [
+          [
+            7,
+            0
+          ],
+          [
+            0,
+            13
+          ]
+        ],
+        "roc_data": {
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.14285714285714285,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.9230769230769231,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "feature_importance": {
+      "RandomForest": {
+        "recency": 0.0946,
+        "frequency": 0.3768,
+        "monetary": 0.1043,
+        "avg_order_value": 0.0285,
+        "purchase_frequency": 0.0875,
+        "product_diversity": 0.1232,
+        "customer_lifetime_days": 0.0843,
+        "segment": 0.1008
+      },
+      "XGBoost": {
+        "recency": 0.029,
+        "frequency": 0.5354,
+        "monetary": 0.1123,
+        "avg_order_value": 0.0081,
+        "purchase_frequency": 0.0204,
+        "product_diversity": 0.2175,
+        "customer_lifetime_days": 0.0123,
+        "segment": 0.0651
+      }
+    },
+    "metadata": {
+      "feature_columns": [
+        "recency",
+        "frequency",
+        "monetary",
+        "avg_order_value",
+        "purchase_frequency",
+        "product_diversity",
+        "customer_lifetime_days",
+        "segment"
+      ],
+      "best_model": "RandomForest",
+      "target_distribution": {
+        "1": 64,
+        "0": 35
+      },
+      "train_size": 79,
+      "test_size": 20
+    }
+  },
+  "timestamp": "2026-06-20T17:46:56.656262"
+}
