@@ -14,6 +14,10 @@ import numpy as np
 import os
 import json
 import sqlite3
+import sys
+
+# Ensure backend directory is in path for relative imports
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Configure professional logging
 logging.basicConfig(
